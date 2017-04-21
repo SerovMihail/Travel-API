@@ -37,7 +37,7 @@ var p1 = new Plane(3, "London", "Spb", "B45", "45", "Automaticly");
 var p2 = new Plane(4, "Spb", "Petrozavodsk", "B45", "45", "Not automaticly");
 
 var cardsFrom = [];
-cardsFrom.push(t, b, p1, p2);
+cardsFrom.push(b, t, p1, p2);
 
 cardsTo = cardsFrom;
 
@@ -81,13 +81,81 @@ sortCardsByTime.prototype = {
 	search: function() {
 		var self = this;	
 
-		self.cardsFrom.forEach(function(o, oIndex, oArr) {
+		var count = self.cardsFrom.length;
+
+		self.sortCards.push(self.cardsFrom[0]); // Случайный элемент
+
+		var searchNext = true;
+		var searchPrev = true;
+
+		var matching = false;
+
+		debugger;
+
+		while (searchNext) {
+
+			matching = false;
+			
+			 var to = self.sortCards[self.sortCards.length - 1];
+
+			for(var i = 0; i < self.cardsFrom.length; i++) {
+				if (self.cardsFrom[i].from === to.to) {
+					self.sortCards.push(self.cardsFrom[i]);
+					matching = true;
+					break;
+				}
+			}
+
+			if(!matching && i==self.cardsFrom.length -1) {
+				searchNext = false;
+				break;
+				
+
+			} 
+
+			if(self.sortCards.length == count) {
+				console.log('Ряд построен', self.sortCards);
+				searchNext = false;
+				searchPrev = false;
+				break;
+
+			}
+			
+		}
+
+		
+
+		while (searchPrev) {
+			var from = self.sortCards[0];
+
+			for(var i = 0; i < self.cardsTo.length; i++) {
+				if (from.from === self.cardsTo[i].to) {
+					self.sortCards.unshift(self.cardsTo[i]);
+					break;
+				}
+			}
+
+			searchPrev = false;
+		}
+
+		/*self.cardsFrom.forEach(function(o, oIndex, oArr) {
 
 			self.matchingFound = false;
+			var result;
 
 			self.cardsTo.forEach(function(i, iIndex, iArr) {
 
-				result = self.searchingForward(o, i, oIndex, iIndex);
+				result = self.searchingForward(o, i, oIndex, iIndex);	
+				// Если результат не приходит за весь обход, то это край
+
+				if(result) {
+					alert('найдено');
+					console.log(self.sortCards);
+					return;
+
+				}
+
+				
 			});	
 
 			if (!self.matchingFound && self.goNext == true) {
@@ -100,7 +168,7 @@ sortCardsByTime.prototype = {
 				console.log('Ошибка последовательности');
 			}
 		});
-
+*/
 			
 		console.log("Результаты поиска и сортировки", self.sortCards);
 	},
@@ -109,6 +177,63 @@ sortCardsByTime.prototype = {
 		var self = this;
 
 		if (o.from === i.to) {
+
+			if(self.sortCards.length == 0 && self.goNext== true) {
+
+				self.sortCards.push(i, o);
+
+				delete self.cardsFrom[oIndex];
+				delete self.cardsTo[iIndex];
+
+				self.matchingFound = true;
+
+				return true;
+			}
+
+			if(self.sortCards.length !== 0 && self.goNext == true) {
+
+				self.sortCards.push(o);
+
+				delete self.cardsFrom[oIndex];
+				delete self.cardsTo[iIndex];
+
+				self.matchingFound = true;
+
+				return true;
+			}
+
+			if(self.sortCards.length == 0 && self.goPrev == true) {
+
+				self.sortCards.push(i, o);
+
+				delete self.cardsFrom[oIndex];
+				delete self.cardsTo[iIndex];
+
+				self.matchingFound = true;
+
+				return true;
+			}
+
+			if(self.sortCards.length !== 0 && self.goPrev == true) {
+
+				self.sortCards.push(i);
+
+				delete self.cardsFrom[oIndex];
+				delete self.cardsTo[iIndex];
+
+				self.matchingFound = true;
+
+				return true;
+			}
+
+			return null;
+
+		} 	
+	},
+	searchingBackward: function(o, i, oIndex, iIndex) {
+		var self = this;
+
+		if (o.to === i.from) {
 
 			if(self.sortCards.length == 0 && self.goNext== true) {
 
