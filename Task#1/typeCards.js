@@ -1,3 +1,10 @@
+/**
+ * Абстрактный класс Transport
+ *
+ * @constructor
+ * @this  {Transport}
+ * @param {string, string}
+ */
 function Transport(from, to) {
 	//this.id = id;
 	this.type = "transport";
@@ -5,6 +12,13 @@ function Transport(from, to) {
 	this.to = to;	
 }
 
+/**
+ * Создает экземпляр Bus.
+ *
+ * @constructor
+ * @this  {Bus}
+ * @param {string, string} 
+ */
 function Bus(from, to) {
 	Transport.apply(this, [from, to]);
 	this.type = "bus";
@@ -14,6 +28,13 @@ function Bus(from, to) {
 Bus.prototype = Object.create(Transport.prototype);
 Bus.prototype.constructor = Bus;
 
+/**
+ * Создает экземпляр Plane.
+ *
+ * @constructor
+ * @this  {Plane}
+ * @param {string, string, string/number, string/number, string}  
+ */
 function Plane(from, to, planeNumber, seat, gate, baggageTransfer) {
 	Transport.apply(this,  [from, to]);	
 	this.type = "plane";
@@ -26,6 +47,13 @@ function Plane(from, to, planeNumber, seat, gate, baggageTransfer) {
 Plane.prototype = Object.create(Transport.prototype);
 Plane.prototype.constructor = Plane;
 
+/**
+ * Создает экземпляр Train.
+ *
+ * @constructor
+ * @this  {Train}
+ * @param {string, string, string/number, string/number} 
+ */
 function Train(from, to, trainNumber, seat) {
 	Transport.apply(this,  [from, to]);
 	this.type = "train";
@@ -36,4 +64,5 @@ function Train(from, to, trainNumber, seat) {
 Train.prototype = Object.create(Transport.prototype);
 Train.prototype.constructor = Train;
 
+// Все поддерживаемые типы средств передвижения
 var supportedVehicles = [Bus, Plane, Train];

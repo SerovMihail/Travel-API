@@ -43,7 +43,7 @@ wwd.findByX('div[1]/div[3]').addClass('col-md-4').setCSS('height', '300px').setC
 
 wwd.findByX('div[2]').setCSS('margin', '50px');
 wwd.findByX('div[2]/h3').addClass('alert alert-success');
-
+wwd.findBy('elem', 'div').addClass('row');
 
 wwd.findBy('allElem', 'li').addClass('list-group-item');
 wwd.findByX('div[2]/div[1]').addClass('panel panel-default');

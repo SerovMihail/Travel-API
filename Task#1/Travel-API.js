@@ -22,8 +22,13 @@ Travel_API.prototype = {
 
 	cardsFrom: [],
 	cardsTo: [],
-	sortCards: [],		
+	sortCards: [],	
 
+	/**
+	 * Добавляет карточку в массив "путешествие"
+	 *
+	 * @this   {Travel_API}
+	 */
 	addToSort: function(type, data) {
 		var self = this;
 
@@ -56,6 +61,11 @@ Travel_API.prototype = {
 		self.cardsTo = self.cardsFrom; 
 	},
 
+	/**
+	 * Отчищает массивы с карточками
+	 *
+	 * @this   {Travel_API}
+	 */
 	clearTravelList: function() {
 		var self = this;
 
@@ -64,6 +74,11 @@ Travel_API.prototype = {
 		self.sortCards =  [];
 	},
 
+	/**
+	 * Заполняет index.html из отсортированного массива карточек
+	 *
+	 * @this   {Travel_API}
+	 */
 	appendTextOnHTML: function(list, obj) {
 		var li = document.createElement("li");
 
@@ -75,14 +90,14 @@ Travel_API.prototype = {
 			}
 			case "train":{
 				li.appendChild(document.
-					createTextNode("Take train " + obj.trainNumber 
+					createTextNode("Take train number " + obj.trainNumber 
 						+ " from " + obj.from + " to " +  obj.to + ". Seat " + obj.seat  + "."));
 				break;
 			}
 			
 			case "plane":	{
 				li.appendChild(document.
-					createTextNode("From  " + obj.from + " take flight " + obj.planeNumber 
+					createTextNode("From  " + obj.from + " take Flight " + obj.planeNumber 
 						+ " to " +  obj.to + ". Gate "
 						 + obj.gate + ". Seat " + obj.seat 
 						 + ".Baggage will be " + obj.baggageTransfer + " transferred."));
@@ -101,32 +116,39 @@ Travel_API.prototype = {
 		list.appendChild(li);
 	},
 
+	/**
+	 * Обрабатываем результат заполненного массива карточек
+	 *
+	 * @this   {Travel_API}
+	 */
 	searchTravelList: function() {
 		var self = this;
 
 		var list = document.getElementById("travelList");
+
+		list.innerText = "";
 
 		if(self.sortCards.length == 0) {
 			var li = document.createElement("li");	
 			li.appendChild(document.createTextNode("Не удалось построить маршрут"));
 			li.className = 'list-group-item';
 			list.appendChild(li);
-		} else {
-
-			
+		} else {			
 
 			self.sortCards.forEach(x => {	
 
 				self.appendTextOnHTML(list, x);				
 
-			});
-			
+			});			
 			
 		}
 	},
 
-
-
+	/**
+	 * Сортируем массив карточек в хронологическом порядке
+	 *
+	 * @this   {Travel_API}
+	 */
 	sortList: function() {
 		var self = this;
 
@@ -235,9 +257,3 @@ Travel_API.prototype = {
 		}				
 	},	
 }
-
-
-
-
-
-
