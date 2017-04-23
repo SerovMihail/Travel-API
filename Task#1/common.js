@@ -43,8 +43,7 @@ cardsFrom.push(t2, t1, p2, b, p1);
 cardsTo = cardsFrom;
 
 function sortCardsByTime() {
-    var self = this;
-   
+    var self = this;   
 }
 
 
