@@ -3,14 +3,36 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Travel API</title>
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 	
-	<h1>Как использовать это?</h1>
 	
+	<div class="container">
+		<div class="jumbotron">
+			<h3>Думаете как добраться до точки назначения?</h1>
+				<p>Используйте <strong>Tavel-API от Yandex</strong> </p>
+				<div style="margin: 0 auto; width: 200px;">
+					<p onclick="Travel.searchTravelList()"><a id="button" class="btn btn-primary btn-lg" href="#" role="button">Сортровать карточки</a></p>
+				</div>
+			</div>
 
-	<script src="common.js"></script>
+			<div class="alert alert-danger" role="alert"> 
+				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+				Используйте консоль браузера для добавления пунктов в маршрут
+			</div>
 
+			<ul id="travelList" class="list-group"></ul>
+
+		</div>	
+
+	
+	
+	<script src="typeCards.js"></script>
+	<script src="Travel-API.js"></script>
+	<script src="test.js"></script>
+		
 
 </body>
 </html>
